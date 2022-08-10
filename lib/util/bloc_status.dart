@@ -1,7 +1,9 @@
 enum BlocStatus {
   initial,
   success,
-  error,
+  showNoSwapInfoErrorMessage,
+  showSomethingWentWrong,
+  error,  
   loading,
   noData,
   noWallet,

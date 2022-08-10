@@ -2,6 +2,7 @@
 
 import 'package:ax_dapp/pages/trade/bloc/trade_page_bloc.dart';
 import 'package:ax_dapp/pages/trade/components/TradeApproveButton.dart';
+import 'package:ax_dapp/repositories/subgraph/usecases/get_swap_info_use_case.dart';
 import 'package:ax_dapp/service/athlete_token_list.dart';
 import 'package:ax_dapp/service/controller/swap/swap_controller.dart';
 import 'package:ax_dapp/service/controller/token.dart';
@@ -11,6 +12,7 @@ import 'package:ax_dapp/util/bloc_status.dart';
 import 'package:ax_dapp/util/format_wallet_address.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -71,6 +73,34 @@ class _DesktopTradeState extends State<DesktopTrade> {
 
         if (state.status == BlocStatus.initial) {
           bloc.add(PageRefreshEvent());
+        }
+
+        if (state.status == BlocStatus.showNoSwapInfoErrorMessage) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDialog<void>(
+              context: context,
+              builder: (context) => const FailedDialog(
+                // Should have a error to message handling
+                message: noSwapInfoErrorMessage,
+              ),
+            ).then((_) {
+              bloc.add(FinishedShowingErrorDialogEvent());
+            });
+          });
+        }
+
+        if (state.status == BlocStatus.showSomethingWentWrong) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDialog<void>(
+              context: context,
+              builder: (context) => const FailedDialog(
+                // Should have a error to message handling
+                message: 'Something went wrong',
+              ),
+            ).then((_) {
+              bloc.add(FinishedShowingErrorDialogEvent());
+            });
+          });
         }
 
         TextStyle textStyle(Color color, double size, bool isBold) {

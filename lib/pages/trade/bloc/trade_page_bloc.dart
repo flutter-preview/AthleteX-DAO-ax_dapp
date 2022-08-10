@@ -27,6 +27,8 @@ class TradePageBloc extends Bloc<TradePageEvent, TradePageState> {
     on<SetTokenFrom>(_mapSetTokenFromEventToState);
     on<SetTokenTo>(_mapSetTokenToEventToState);
     on<SwapTokens>(_mapSwapTokensEventToState);
+    on<SwapTokens>(_mapSwapTokensEventToState);
+    on<FinishedShowingErrorDialogEvent>(_mapFinishedShowingErrorDialogToState);
   }
 
   final GetSwapInfoUseCase repo;
@@ -99,11 +101,30 @@ class TradePageBloc extends Bloc<TradePageEvent, TradePageState> {
         //do some math
         emit(state.copyWith(status: BlocStatus.success, swapInfo: swapInfo));
       } else {
-        // TODO(anyone): Create User facing error messages https://athletex.atlassian.net/browse/AX-466
-        emit(state.copyWith(status: BlocStatus.error));
+        final errorMsg = response.getRight().toNullable()?.errorMsg;
+        if (errorMsg == noSwapInfoErrorMessage) {
+          emit(
+            state.copyWith(
+              status: BlocStatus.showNoSwapInfoErrorMessage,
+              tokenInputToAmount: 0,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              status: BlocStatus.showSomethingWentWrong,
+              tokenInputToAmount: 0,
+            ),
+          );
+        }
       }
     } catch (_) {
-      emit(state.copyWith(status: BlocStatus.error));
+      emit(
+        state.copyWith(
+          status: BlocStatus.error,
+          tokenInputToAmount: 0,
+        ),
+      );
     }
   }
 
@@ -166,4 +187,14 @@ class TradePageBloc extends Bloc<TradePageEvent, TradePageState> {
       ),
     );
   }
+
+  void _mapFinishedShowingErrorDialogToState(
+    FinishedShowingErrorDialogEvent event,
+    Emitter<TradePageState> emit,
+  ) =>
+      emit(
+        state.copyWith(
+          status: BlocStatus.error,
+        ),
+      );
 }

@@ -7,6 +7,8 @@ abstract class TradePageEvent extends Equatable {
 
 class PageRefreshEvent extends TradePageEvent {}
 
+class FinishedShowingErrorDialogEvent extends TradePageEvent {}
+
 class NewTokenFromInputEvent extends TradePageEvent {
   NewTokenFromInputEvent({required this.tokenInputFromAmount});
 

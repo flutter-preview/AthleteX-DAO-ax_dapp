@@ -2019,8 +2019,11 @@ BoxDecoration boxDecoration(
 
 class FailedDialog extends StatelessWidget {
   const FailedDialog({
+    this.message = 'Transaction Rejected',
     super.key,
   });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -2055,7 +2058,7 @@ class FailedDialog extends StatelessWidget {
                     children: <Widget>[
                       Container(width: 5),
                       Text(
-                        'Transaction Rejected',
+                        message,
                         style: textStyle(Colors.white, 20, false),
                       ),
                       SizedBox(
