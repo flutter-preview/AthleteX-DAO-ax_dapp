@@ -8,7 +8,7 @@ class SupportedMLBAthletes {
   static const int _treaTurnerId = 10002094;
   static const int _juanSotoId = 10006794;
   static const int _fernandoTatisId = 10007217;
-  static const int _vladimirGuerreroId = 10007501;
+  static const int _vladimirGuerreroId = 1000786761;
 
   static const List<int> _athleteIdsList = [
     _joseRamirezId,
