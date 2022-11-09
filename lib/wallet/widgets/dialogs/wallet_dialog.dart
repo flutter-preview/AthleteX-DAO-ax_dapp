@@ -57,7 +57,7 @@ class WalletDialog extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) => Container(
             constraints: const BoxConstraints(minHeight: 235, maxHeight: 250),
-            height: constraints.maxHeight * 0.26,
+            height: constraints.maxHeight * 0.35,
             width: constraints.maxWidth * 0.27,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -132,7 +132,6 @@ class WalletDialog extends StatelessWidget {
                                 fontSize: 16,
                               ),
                             ),
-                            //empty container
                             Container(
                               margin: const EdgeInsets.only(left: 20),
                             ),
@@ -141,6 +140,53 @@ class WalletDialog extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 30),
+                      width: constraints.maxWidth < 450
+                          ? constraints.maxWidth * 0.62
+                          : constraints.maxWidth * 0.22,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: Colors.grey[400]!, width: 2),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          context
+                              .read<WalletBloc>()
+                              .add(const ConnectWalletRequested());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/wc.png'),
+                                  fit: BoxFit.cover
+                                )
+                              ),
+                              const Text(
+                              'Wallet Connect',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'OpenSans',
+                                fontSize: 16,
+                              ),
+                            )
+                            )
+                          ]
+                        )
+                      ),
+                    ),
+                  ]
                 ),
                 Visibility(
                   visible: !kIsWeb,
