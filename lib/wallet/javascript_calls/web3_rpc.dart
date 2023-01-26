@@ -1,5 +1,5 @@
 @JS()
-library web3rpc;
+library web3_js;
 
 import 'package:js/js.dart';
 

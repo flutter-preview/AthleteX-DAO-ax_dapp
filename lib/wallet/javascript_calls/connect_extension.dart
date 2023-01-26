@@ -1,9 +1,9 @@
 @JS()
-library connectextension;
+library connect_extension;
 
 import 'package:js/js.dart';
 
 @JS()
 class ConnectExtension {
-  external ConnectExtension();
+  external factory ConnectExtension();
 }

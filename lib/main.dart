@@ -19,6 +19,7 @@ import 'package:ax_dapp/repositories/usecases/get_all_liquidity_info_use_case.da
 import 'package:ax_dapp/service/api/mlb_athlete_api.dart';
 import 'package:ax_dapp/service/api/nfl_athlete_api.dart';
 import 'package:ax_dapp/wallet/javascript_calls/magic.dart';
+import 'package:ax_dapp/wallet/javascript_calls/web3_rpc.dart';
 import 'package:ax_dapp/wallet/repository/magic_repository.dart';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -83,11 +84,13 @@ void main() async {
   });
 
   final magic = Magic(
-    'pk_live_46C64E93DA4A6F28',
+    'pk_live_A0EFC48FF2C1D624',
     jsify({
       'network': customNodeOptions,
     }),
   );
+
+  final web3 = Web3(magic.rpcProvider);
 
   unawaited(
     bootstrap(() async {
@@ -99,6 +102,7 @@ void main() async {
           RepositoryProvider(
             create: (_) => MagicRepository(
               magic: magic,
+              web3: web3,
             ),
           ),
           RepositoryProvider(

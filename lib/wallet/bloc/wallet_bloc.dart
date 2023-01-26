@@ -133,7 +133,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     Emitter<WalletState> emit,
   ) async {
     try {
-      _magicRepository.loginWithMagicLink();
+      _magicRepository.connect();
       emit(state.copyWith());
     } catch (e) {
       emit(state.copyWith());
@@ -147,7 +147,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     Emitter<WalletState> emit,
   ) async {
     try {
-      _magicRepository.logout();
+      _magicRepository.disconnect();
       emit(state.copyWith());
     } catch (e) {
       emit(state.copyWith());
