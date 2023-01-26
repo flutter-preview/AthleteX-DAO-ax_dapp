@@ -18,9 +18,7 @@ import 'package:ax_dapp/repositories/subgraph/usecases/get_swap_info_use_case.da
 import 'package:ax_dapp/repositories/usecases/get_all_liquidity_info_use_case.dart';
 import 'package:ax_dapp/service/api/mlb_athlete_api.dart';
 import 'package:ax_dapp/service/api/nfl_athlete_api.dart';
-import 'package:ax_dapp/wallet/javascript_calls/connect_extension.dart';
 import 'package:ax_dapp/wallet/javascript_calls/magic.dart';
-import 'package:ax_dapp/wallet/javascript_calls/web3_rpc.dart';
 import 'package:ax_dapp/wallet/repository/magic_repository.dart';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -79,15 +77,17 @@ void main() async {
   final getPairInfoUseCase = GetPairInfoUseCase(subGraphRepo);
   final getSwapInfoUseCase = GetSwapInfoUseCase(getPairInfoUseCase);
 
+  final customNodeOptions = jsify({
+    'rpcUrl': 'https://polygon-rpc.com/',
+    'chainId': 137,
+  });
+
   final magic = Magic(
     'pk_live_46C64E93DA4A6F28',
-    137,
-    'https://polygon-rpc.com/',
-    'en_US',
-    ConnectExtension(),
+    jsify({
+      'network': customNodeOptions,
+    }),
   );
-
-  final web3rpc = Web3RPC();
 
   unawaited(
     bootstrap(() async {
@@ -99,7 +99,6 @@ void main() async {
           RepositoryProvider(
             create: (_) => MagicRepository(
               magic: magic,
-              web3rpc: web3rpc,
             ),
           ),
           RepositoryProvider(
