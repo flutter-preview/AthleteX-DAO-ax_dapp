@@ -18,6 +18,7 @@ import 'package:ax_dapp/repositories/subgraph/usecases/get_swap_info_use_case.da
 import 'package:ax_dapp/repositories/usecases/get_all_liquidity_info_use_case.dart';
 import 'package:ax_dapp/service/api/mlb_athlete_api.dart';
 import 'package:ax_dapp/service/api/nfl_athlete_api.dart';
+import 'package:ax_dapp/wallet/javascript_calls/connect_extension.dart';
 import 'package:ax_dapp/wallet/javascript_calls/magic.dart';
 import 'package:ax_dapp/wallet/javascript_calls/web3_rpc.dart';
 import 'package:ax_dapp/wallet/repository/magic_repository.dart';
@@ -83,10 +84,13 @@ void main() async {
     'chainId': 137,
   });
 
+  final magicConnectExtension = MagicConnectExtension();
+
   final magic = Magic(
     'pk_live_A0EFC48FF2C1D624',
     jsify({
       'network': customNodeOptions,
+      'extensions': [magicConnectExtension],
     }),
   );
 
