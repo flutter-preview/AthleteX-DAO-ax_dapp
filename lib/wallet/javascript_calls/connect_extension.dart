@@ -1,9 +1,9 @@
 @JS()
-library connect_extension;
+library magic_connect_extension;
 
 import 'package:js/js.dart';
 
 @JS()
-class ConnectExtension {
-  external factory ConnectExtension();
+class MagicConnectExtension {
+  external factory MagicConnectExtension();
 }
