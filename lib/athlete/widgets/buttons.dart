@@ -261,3 +261,44 @@ class RedeemButton extends StatelessWidget {
     );
   }
 }
+
+class SettleButton extends StatelessWidget {
+  const SettleButton({
+    super.key,
+    required this.athlete,
+    required this.isPortraitMode,
+    required this.containerWdt,
+  })
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: isPortraitMode ? containerWdt / 3 : 175,
+      height: 50,
+      decoration: boxDecoration( primaryOrangeColor, 100, 2, primaryWhiteColor),
+      child: TextButton(
+        onPressed: () {
+          final isWalletConnected = context.read<WalletBloc>().state.isWalletConnected;
+          if (isWalletConnected) {
+            showDialog<void>(
+              context: context,
+              builder: (BuildContext context) => BlocProvider(
+                create: (BuildContext context) => SettleDialogBloc(
+                  // Detailsfor the Settle Bloc Pattern
+                ),
+                child: SettleDialog(
+                  // This needs to be filled out
+                ),
+              )
+            )
+          } else
+          {
+            context.showWalletWarningToast();
+          }
+          //This is where the heavy details go
+        },
+        child: Text('Settle', style: textStyle(Colors.black, 20, false, false))
+      )
+    )
+  }
+}
