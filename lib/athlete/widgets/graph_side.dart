@@ -149,6 +149,7 @@ class GraphSide extends StatelessWidget {
                           )
                         ],
                       ),
+                      // Add a conditional to replace the Mint & Redeem Buttons with a settle button based on EXPIRY
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
