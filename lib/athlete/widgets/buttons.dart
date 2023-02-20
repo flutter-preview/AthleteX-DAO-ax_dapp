@@ -7,6 +7,8 @@ import 'package:ax_dapp/dialogs/redeem/bloc/redeem_dialog_bloc.dart';
 import 'package:ax_dapp/dialogs/redeem/redeem_dialog.dart';
 import 'package:ax_dapp/dialogs/sell/bloc/sell_dialog_bloc.dart';
 import 'package:ax_dapp/dialogs/sell/sell_dialog.dart';
+import 'package:ax_dapp/dialogs/settle/bloc/settle_dialog_bloc.dart';
+import 'package:ax_dapp/dialogs/settle/settle_dialog.dart';
 import 'package:ax_dapp/repositories/subgraph/usecases/get_buy_info_use_case.dart';
 import 'package:ax_dapp/repositories/subgraph/usecases/get_sell_info_use_case.dart';
 import 'package:ax_dapp/scout/models/models.dart';
@@ -284,10 +286,23 @@ class SettleButton extends StatelessWidget {
               context: context,
               builder: (BuildContext context) => BlocProvider(
                 create: (BuildContext context) => SettleDialogBloc(
-                  // Detailsfor the Settle Bloc Pattern
+                  // This will need to be reworked again
+                  // tokensRepository: context.read<TokensRepository>(),
+                  // getTotalTokenBalanceUseCase: GetTotalTokenBalanceUseCase(
+                  //   walletRepository: context.read<WalletRepository>(),
+                  //   tokensRepository: context.read<TokensRepository>(),
+                  // ),
+                  // longShortPairRepository: context.read<LongShortPairRepository>(),
+                  // athleteId: athlete.id,
+                  // supportedSport: athlete.sport,
+
                 ),
                 child: SettleDialog(
-                  // This needs to be filled out
+                  // athlete,
+                  // athlete.sport.toString(),
+                  // inputLongApt,
+                  // inputShortApt,
+                  // valueInAX
                 ),
               )
             )
@@ -295,7 +310,6 @@ class SettleButton extends StatelessWidget {
           {
             context.showWalletWarningToast();
           }
-          //This is where the heavy details go
         },
         child: Text('Settle', style: textStyle(Colors.black, 20, false, false))
       )
