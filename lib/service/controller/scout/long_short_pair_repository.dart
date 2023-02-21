@@ -15,14 +15,39 @@ class LongShortPairRepository {
   RxDouble redeemAmt = 0.0.obs;
   RxString aptAddress = ''.obs;
   Web3Client tokenClient = Web3Client('https://polygon-rpc.com', Client());
+  
+  int _expirationTimestamp;
+  int _expiryPrice;
 
   String get tokenAddress => aptAddress.value;
   double get createAmount => createAmt.value;
   double get redeemAmount => redeemAmt.value;
+  
+  int get expirationTimestamp => this.expirationTimestamp;
 
   set tokenAddress(String pairAddress) => aptAddress.value = pairAddress;
   set createAmount(double newAmount) => createAmt.value = newAmount;
   set redeemAmount(double newAmount) => redeemAmt.value = newAmount;
+
+  Future<int> expiryPrice()
+  {
+    final address = EthereumAddress.fromHex(aptAddress.value);
+    genericLSP = LongShortPair(address: address, client: tokenClient);
+    thePrice = await genericLSP.expirtyPrice();
+    _expiryPrice = thePrice.toInt();
+
+    return _expiryPrice;
+  }
+
+  Future<int> expirationTimestamp() async 
+  {
+    final address = EthereumAddress.fromHex(aptAddress.value);
+    genericLSP = LongShortPair(address: address, client: tokenClient);
+    BigInt theTimestamp = await genericLSP.expirationTimestamp();
+    _expirationTimestamp = theTimestamp.toInt();
+
+    return _expirationTimestamp;
+  }
 
   Future<void> mint() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
@@ -53,6 +78,22 @@ class LongShortPairRepository {
     final tokensToRedeem = normalizeInput(redeemAmt.value);
     try {
       await genericLSP.redeem(tokensToRedeem, credentials: theCredentials);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // function tempoarily returns a void 
+  Future<void> settle() async {
+    final address = EthereumAddress.fromHex(aptAddress.value);
+    genericLSP = LongShortPair(address: address, client: tokenClient);
+    final theCredentials = controller.credentials;
+    final tokensToRedeem = normalizeInput(redeemAmt.value);
+
+    try {
+      //Settle needs to be filled out
+      await genericLSP.settle(longTokensToRedeem, shortTokensToRedeem, credentials: theCredentials);
       return true;
     } catch (_) {
       return false;
