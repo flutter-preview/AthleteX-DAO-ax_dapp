@@ -18,7 +18,7 @@ import 'package:ax_dapp/scout/view/scout_base.dart';
 import 'package:ax_dapp/service/athlete.dart';
 import 'package:ax_dapp/service/controller/controller.dart';
 import 'package:ax_dapp/service/controller/pool/pool_repository.dart';
-import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart.dart';
+import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 import 'package:ax_dapp/service/controller/swap/swap_repository.dart';
 import 'package:ax_dapp/service/global.dart';
 import 'package:ethereum_api/gysr_api.dart';

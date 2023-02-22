@@ -21,7 +21,7 @@ import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
 import 'package:ax_dapp/scout/usecases/get_scout_athletes_data_use_case.dart';
 import 'package:ax_dapp/scout/view/scout_base.dart';
 import 'package:ax_dapp/service/controller/pool/pool_repository.dart';
-import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart.dart';
+import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 import 'package:ax_dapp/service/controller/swap/swap_repository.dart';
 import 'package:ax_dapp/service/global.dart';
 import 'package:ax_dapp/service/tracking/tracking_cubit.dart';

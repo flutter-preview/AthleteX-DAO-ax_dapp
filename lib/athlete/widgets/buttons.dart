@@ -12,7 +12,7 @@ import 'package:ax_dapp/dialogs/settle/settle_dialog.dart';
 import 'package:ax_dapp/repositories/subgraph/usecases/get_buy_info_use_case.dart';
 import 'package:ax_dapp/repositories/subgraph/usecases/get_sell_info_use_case.dart';
 import 'package:ax_dapp/scout/models/models.dart';
-import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart.dart';
+import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 import 'package:ax_dapp/service/controller/swap/swap_repository.dart';
 import 'package:ax_dapp/service/controller/usecases/get_max_token_input_use_case.dart';
 import 'package:ax_dapp/util/athlete_page_format_helper.dart';
