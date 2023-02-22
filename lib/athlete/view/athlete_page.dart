@@ -5,7 +5,7 @@ import 'package:ax_dapp/repositories/mlb_repo.dart';
 import 'package:ax_dapp/repositories/nfl_repo.dart';
 import 'package:ax_dapp/repositories/subgraph/sub_graph_repo.dart';
 import 'package:ax_dapp/scout/scout.dart';
-import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart.dart';
+import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 import 'package:ax_dapp/service/global.dart';
 import 'package:ax_dapp/util/util.dart';
 import 'package:flutter/foundation.dart';
