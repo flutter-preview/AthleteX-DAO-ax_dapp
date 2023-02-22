@@ -3,9 +3,25 @@ part of 'settle_dialog_bloc.dart';
 abstract class SettleDialogEvent extends Equatable {
     const SettleDialogEvent();
 
-    @overrideList<Object?> get props => [];
+    @override
+    List<Object?> get props => [];
+
 }
 
 class EnableExpiry extends SettleDialogEvent {
-    const 
+    const EnableExpiry();
+    @override
+    List<Object?> get props => [];
+}
+
+
+class GetSettlePrice extends SettleDialogEvent {
+    @override
+  List<Object?> get props => [];
+}
+
+class SettleAllAPT extends SettleDialogEvent {
+
+  @override
+  List<Object?> get props => [];
 }
