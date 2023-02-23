@@ -13,25 +13,26 @@ class LongShortPairRepository {
   late LongShortPair genericLSP;
   RxDouble createAmt = 0.0.obs;
   RxDouble redeemAmt = 0.0.obs;
+  RxDouble longRedeemAmt = 0.0.obs;
+  RxDouble shortRedeemAmt = 0.0.obs;
   RxString aptAddress = ''.obs;
   Web3Client tokenClient = Web3Client('https://polygon-rpc.com', Client());
-  
-  /// The private expiration timestamp 
-  int _expirationTimestamp;
-  int _expiryPrice;
+
+  int _expirationTimestamp = 0;
+  int _expiryPrice = 0;
 
   String get tokenAddress => aptAddress.value;
   double get createAmount => createAmt.value;
   double get redeemAmount => redeemAmt.value;
-  
-  int get expirationTimestamp => this.expirationTimestamp;
+
+  int get expirationTimestamp => _expirationTimestamp;
+  int get expiryPrice => _expiryPrice;
 
   set tokenAddress(String pairAddress) => aptAddress.value = pairAddress;
   set createAmount(double newAmount) => createAmt.value = newAmount;
   set redeemAmount(double newAmount) => redeemAmt.value = newAmount;
 
-  Future<int> expPrice() async
-  {
+  Future<int> expPrice() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final thePrice = await genericLSP.expiryPrice();
@@ -40,12 +41,11 @@ class LongShortPairRepository {
     return thePrice.toInt();
   }
 
-  Future<int> expTimestamp() async 
-  {
+  Future<int> expTimestamp() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final theTimestamp = await genericLSP.expirationTimestamp();
-    
+
     _expirationTimestamp = theTimestamp.toInt();
     return theTimestamp.toInt();
   }
@@ -85,19 +85,19 @@ class LongShortPairRepository {
     }
   }
 
-  // function tempoarily returns a void 
   Future<void> settle() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final theCredentials = controller.credentials;
-    final tokensToRedeem = normalizeInput(redeemAmt.value);
 
-    try {
-      //Settle needs to be filled out
-      await genericLSP.settle(longTokensToRedeem, shortTokensToRedeem, credentials: theCredentials);
-      return true;
-    } catch (_) {
-      return false;
-    }
+    final longTokensToRedeem = normalizeInput(longRedeemAmt.value);
+    final shortTokensToRedeem = normalizeInput(shortRedeemAmt.value);
+
+    final txn = await genericLSP.settle(
+      longTokensToRedeem,
+      shortTokensToRedeem,
+      credentials: theCredentials,
+    );
+    controller.transactionHash = txn;
   }
 }

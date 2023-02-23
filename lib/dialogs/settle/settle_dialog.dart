@@ -1,39 +1,72 @@
+import 'package:ax_dapp/dialogs/settle/bloc/settle_dialog_bloc.dart';
+import 'package:ax_dapp/dialogs/settle/widgets/settle_apt.dart';
 import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
+import 'package:ax_dapp/service/custom_styles.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettleDialog extends StatefulWidget {
-    const SettleDialog({
-      required this.athlete,
-    });
+  const SettleDialog({
+    required this.athlete,
+    super.key,
+  });
 
-      final AthleteScoutModel athlete;
-      
+  final AthleteScoutModel athlete;
 
-    @override
-    State<StatefulWidget> createState() => _SettleDialogState();
+  @override
+  State<StatefulWidget> createState() => _SettleDialogState();
 }
 
 class _SettleDialogState extends State<SettleDialog> {
-    double paddingHorizontal = 20;
-    double hgt = 500;
+  double paddingHorizontal = 20;
+  double hgt = 500;
 
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     final isWeb =
         kIsWeb && (MediaQuery.of(context).orientation == Orientation.landscape);
     final _height = MediaQuery.of(context).size.height;
     final wid = isWeb ? 400.0 : 355.0;
 
     // This will be refactored... soon!
-    return Container();
-    }
+    return BlocConsumer<SettleDialogBloc, SettleDialogState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final bloc = context.read<SettleDialogBloc>();
+        final longRedeem = state.longAPTAmount;
+        final shortRedeem = state.shortAPTAmount;
 
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
+            height: hgt,
+            width: wid,
+            decoration: boxDecoration(Colors.grey[900]!, 30, 0, Colors.black),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // SettleAPT(tokenAddress: '000'),
+                Divider(
+                  thickness: 0.35,
+                  color: Colors.grey[400],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 }
