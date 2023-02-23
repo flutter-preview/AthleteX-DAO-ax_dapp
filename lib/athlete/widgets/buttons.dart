@@ -179,7 +179,8 @@ class MintButton extends StatelessWidget {
                     walletRepository: context.read<WalletRepository>(),
                     tokensRepository: context.read<TokensRepository>(),
                   ),
-                  longShortPairRepository: context.read<LongShortPairRepository>(),
+                  longShortPairRepository:
+                      context.read<LongShortPairRepository>(),
                   athleteId: athlete.id,
                   supportedSport: athlete.sport,
                 ),
@@ -237,7 +238,8 @@ class RedeemButton extends StatelessWidget {
                     walletRepository: context.read<WalletRepository>(),
                     tokensRepository: context.read<TokensRepository>(),
                   ),
-                  longShortPairRepository: context.read<LongShortPairRepository>(),
+                  longShortPairRepository:
+                      context.read<LongShortPairRepository>(),
                   athleteId: athlete.id,
                   supportedSport: athlete.sport,
                 ),
@@ -270,49 +272,43 @@ class SettleButton extends StatelessWidget {
     required this.athlete,
     required this.isPortraitMode,
     required this.containerWdt,
-  })
+  });
+
+  final bool isPortraitMode;
+  final double containerWdt;
+  final AthleteScoutModel athlete;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: isPortraitMode ? containerWdt / 3 : 175,
       height: 50,
-      decoration: boxDecoration( primaryOrangeColor, 100, 2, primaryWhiteColor),
+      decoration: boxDecoration(primaryOrangeColor, 100, 2, primaryWhiteColor),
       child: TextButton(
         onPressed: () {
-          final isWalletConnected = context.read<WalletBloc>().state.isWalletConnected;
+          final isWalletConnected =
+              context.read<WalletBloc>().state.isWalletConnected;
           if (isWalletConnected) {
             showDialog<void>(
               context: context,
               builder: (BuildContext context) => BlocProvider(
                 create: (BuildContext context) => SettleDialogBloc(
-                  // This will need to be reworked again
-                  // tokensRepository: context.read<TokensRepository>(),
-                  // getTotalTokenBalanceUseCase: GetTotalTokenBalanceUseCase(
-                  //   walletRepository: context.read<WalletRepository>(),
-                  //   tokensRepository: context.read<TokensRepository>(),
-                  // ),
-                  // longShortPairRepository: context.read<LongShortPairRepository>(),
-                  // athleteId: athlete.id,
-                  // supportedSport: athlete.sport,
-
+                  longShortPairRepository:
+                      context.read<LongShortPairRepository>(),
+                  tokensRepository: context.read<TokensRepository>(),
+                  walletRepository: context.read<WalletRepository>(),
                 ),
                 child: SettleDialog(
-                  // athlete,
-                  // athlete.sport.toString(),
-                  // inputLongApt,
-                  // inputShortApt,
-                  // valueInAX
+                  athlete: athlete,
                 ),
-              )
-            )
-          } else
-          {
+              ),
+            );
+          } else {
             context.showWalletWarningToast();
           }
         },
-        child: Text('Settle', style: textStyle(Colors.black, 20, false, false))
-      )
-    )
+        child: Text('Settle', style: textStyle(Colors.black, 20, false, false)),
+      ),
+    );
   }
 }

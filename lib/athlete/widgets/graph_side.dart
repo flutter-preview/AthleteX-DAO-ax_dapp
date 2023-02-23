@@ -158,6 +158,10 @@ class GraphSide extends StatelessWidget {
                             isPortraitMode: _isPortraitMode,
                             containerWdt: containerWidth,
                           ),
+                          SettleButton(
+                              athlete: athlete,
+                              isPortraitMode: _isPortraitMode,
+                              containerWdt: containerWidth,),
                           RedeemButton(
                             athlete: athlete,
                             inputLongApt: '',
