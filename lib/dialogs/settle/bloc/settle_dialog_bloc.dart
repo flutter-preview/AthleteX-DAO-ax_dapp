@@ -18,7 +18,10 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
         _walletRepository = walletRepository,
         super(const SettleDialogState()) {
     on<EnableExpiry>(_onEnableExpiry);
-    // on<GetSettlePrice>((event, emit) => null);
+    on<GetSettlePrice>(_onGetSettlePrice);
+
+    // Immediately get the settlement price after invocation
+    add(GetSettlePrice());
   }
 
   final LongShortPairRepository _longShortPairRepository;
@@ -33,5 +36,16 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
       state.copyWith(longAPTAmount: 0, shortAPTAmount: 0),
     );
     add(GetSettlePrice());
+  }
+
+  Future<void> _onGetSettlePrice(
+    GetSettlePrice event,
+    Emitter<SettleDialogState> emit,
+  ) async {
+    final settlementPrice = await _longShortPairRepository.expPrice();
+
+    emit(
+      state.copyWith(settlementPrice: settlementPrice),
+    );
   }
 }
