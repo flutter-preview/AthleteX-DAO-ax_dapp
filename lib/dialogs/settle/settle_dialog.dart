@@ -3,6 +3,7 @@ import 'package:ax_dapp/dialogs/settle/widgets/settle_apt.dart';
 import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
 import 'package:ax_dapp/service/custom_styles.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,11 +31,11 @@ class _SettleDialogState extends State<SettleDialog> {
     final _height = MediaQuery.of(context).size.height;
     final wid = isWeb ? 400.0 : 355.0;
 
-    // This will be refactored... soon!
     return BlocConsumer<SettleDialogBloc, SettleDialogState>(
       listener: (context, state) {},
       builder: (context, state) {
         final bloc = context.read<SettleDialogBloc>();
+        final settlementPrice = state.settlementPrice;
         final longRedeem = state.longAPTAmount;
         final shortRedeem = state.shortAPTAmount;
 
@@ -52,7 +53,64 @@ class _SettleDialogState extends State<SettleDialog> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // SettleAPT(tokenAddress: '000'),
+                SizedBox(
+                  width: wid,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Settle your ${widget.athlete.name} APTs',
+                        style: textStyle(
+                          Colors.white,
+                          20,
+                          isBold: false,
+                          isUline: false,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: wid,
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text:
+                              'you can settle APTs for their settlement price on expiration',
+                          style: textStyle(
+                            Colors.grey[600]!,
+                            isWeb ? 14 : 12,
+                            isBold: false,
+                            isUline: false,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '  What does this mean?',
+                          style: textStyle(
+                            Colors.amber[400]!,
+                            isWeb ? 14 : 12,
+                            isBold: false,
+                            isUline: false,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Something is happening!');
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SettleAPT(settlementPrice: settlementPrice),
                 Divider(
                   thickness: 0.35,
                   color: Colors.grey[400],
