@@ -18,27 +18,27 @@ class LongShortPairRepository {
   RxString aptAddress = ''.obs;
   Web3Client tokenClient = Web3Client('https://polygon-rpc.com', Client());
 
-  int _expirationTimestamp = 0;
-  int _expiryPrice = 0;
+  RxInt _expirationTimestamp = 0.obs;
+  RxDouble _expiryPrice = 0.0.obs;
 
   String get tokenAddress => aptAddress.value;
   double get createAmount => createAmt.value;
   double get redeemAmount => redeemAmt.value;
 
-  int get expirationTimestamp => _expirationTimestamp;
-  int get expiryPrice => _expiryPrice;
+  int get expirationTimestamp => _expirationTimestamp.value;
+  double get expiryPrice => _expiryPrice.value;
 
   set tokenAddress(String pairAddress) => aptAddress.value = pairAddress;
   set createAmount(double newAmount) => createAmt.value = newAmount;
   set redeemAmount(double newAmount) => redeemAmt.value = newAmount;
 
-  Future<int> expPrice() async {
+  Future<double> expPrice() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final thePrice = await genericLSP.expiryPrice();
-    _expiryPrice = thePrice.toInt();
+    _expiryPrice.value = thePrice.toDouble();
 
-    return thePrice.toInt();
+    return thePrice.toDouble();
   }
 
   Future<int> expTimestamp() async {
@@ -46,7 +46,7 @@ class LongShortPairRepository {
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final theTimestamp = await genericLSP.expirationTimestamp();
 
-    _expirationTimestamp = theTimestamp.toInt();
+    _expirationTimestamp.value = theTimestamp.toInt();
     return theTimestamp.toInt();
   }
 
