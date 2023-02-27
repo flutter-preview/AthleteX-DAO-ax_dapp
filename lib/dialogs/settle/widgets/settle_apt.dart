@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class SettleAPT extends StatelessWidget {
   const SettleAPT({
     super.key,
-    required this.tokenAddress,
+    required this.settlementPrice,
   });
 
-  final String tokenAddress;
+  final double settlementPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SettleAPT extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'This will be used later',
+            'The settlement price for the APT is: α$settlementPrice',
             style: textStyle(
               Colors.white,
               15,
