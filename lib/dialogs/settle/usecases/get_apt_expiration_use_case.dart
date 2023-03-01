@@ -1,10 +1,8 @@
 import 'dart:core';
 import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 
-
-class CheckAPTExpirationUseCase {
-
-  CheckAPTExpirationUseCase({
+class GetAPTExpirationUseCase {
+  GetAPTExpirationUseCase({
     required LongShortPairRepository longShortPairRepository,
     required this.address,
   }) : _longShortPairRepository = longShortPairRepository;
@@ -14,7 +12,7 @@ class CheckAPTExpirationUseCase {
 
   Future<bool> isAptExpired() async {
     final currentTimestamp = DateTime.now().millisecondsSinceEpoch;
-    final aptAddress = await _longShortPairRepository.expTimestamp();
-    return currentTimestamp > aptAddress;
+    final aptTimestamp = await _longShortPairRepository.expTimestamp();
+    return currentTimestamp > aptTimestamp;
   }
 }
