@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ax_dapp/app/view/app_routing.dart';
 import 'package:ax_dapp/bootstrap.dart';
 import 'package:ax_dapp/chat_box/repository/chat_gpt_repository.dart';
+import 'package:ax_dapp/dialogs/settle/usecases/get_apt_expiration_use_case.dart';
 import 'package:ax_dapp/firebase_options.dart';
 import 'package:ax_dapp/live_chat_box/repository/live_chat_repository.dart';
 import 'package:ax_dapp/logger_interceptor.dart';
@@ -151,6 +152,11 @@ void main() async {
           ),
           RepositoryProvider(
             create: (context) => GetAllLiquidityInfoUseCase(subGraphRepo),
+          ),
+          RepositoryProvider(
+            create: (context) => GetAPTExpirationUseCase(
+              longShortPairRepository: context.read<LongShortPairRepository>(),
+            ),
           ),
           RepositoryProvider(
             create: (context) => TrackingRepository(),
