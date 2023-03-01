@@ -1,6 +1,7 @@
 import 'package:ax_dapp/app/widgets/widgets.dart';
 import 'package:ax_dapp/athlete/bloc/athlete_page_bloc.dart';
 import 'package:ax_dapp/athlete/widgets/widgets.dart';
+import 'package:ax_dapp/dialogs/settle/usecases/get_apt_expiration_use_case.dart';
 import 'package:ax_dapp/repositories/mlb_repo.dart';
 import 'package:ax_dapp/repositories/nfl_repo.dart';
 import 'package:ax_dapp/repositories/subgraph/sub_graph_repo.dart';
@@ -76,6 +77,7 @@ class _AthletePageState extends State<AthletePage> {
           create: (context) => AthletePageBloc(
             walletRepository: context.read<WalletRepository>(),
             tokensRepository: context.read<TokensRepository>(),
+            getAPTExpirationUseCase: context.read<GetAPTExpirationUseCase>(),
             mlbRepo: RepositoryProvider.of<MLBRepo>(context),
             nflRepo: RepositoryProvider.of<NFLRepo>(context),
             athlete: athlete,

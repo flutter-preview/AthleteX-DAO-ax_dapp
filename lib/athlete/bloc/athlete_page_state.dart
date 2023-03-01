@@ -8,6 +8,7 @@ class AthletePageState extends Equatable {
     this.shortApt = const Apt.empty(),
     this.stats = const [],
     this.failure = Failure.none,
+    this.isExpired = false,
   });
 
   final BlocStatus status;
@@ -16,6 +17,7 @@ class AthletePageState extends Equatable {
   final Apt shortApt;
   final List<GraphData> stats;
   final Failure failure;
+  final bool isExpired;
 
   AthletePageState copyWith({
     BlocStatus? status,
@@ -24,6 +26,7 @@ class AthletePageState extends Equatable {
     Apt? shortApt,
     List<GraphData>? stats,
     Failure? failure,
+    bool? isExpired,
   }) {
     return AthletePageState(
       status: status ?? this.status,
@@ -32,18 +35,13 @@ class AthletePageState extends Equatable {
       shortApt: shortApt ?? this.shortApt,
       stats: stats ?? this.stats,
       failure: failure ?? this.failure,
+      isExpired: isExpired ?? this.isExpired,
     );
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        aptTypeSelection,
-        longApt,
-        shortApt,
-        stats,
-        failure,
-      ];
+  List<Object?> get props =>
+      [status, aptTypeSelection, longApt, shortApt, stats, failure, isExpired];
 }
 
 extension BuyDialogStateX on AthletePageState {

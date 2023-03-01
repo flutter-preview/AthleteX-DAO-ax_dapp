@@ -39,3 +39,5 @@ class OnGraphRefresh extends AthletePageEvent {}
 class AddTokenToWalletRequested extends AthletePageEvent {
   const AddTokenToWalletRequested();
 }
+
+class CheckAPTExpiration extends AthletePageEvent {}
