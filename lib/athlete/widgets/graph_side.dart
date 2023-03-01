@@ -1,4 +1,5 @@
 import 'package:ax_dapp/athlete/bloc/athlete_page_bloc.dart';
+import 'package:ax_dapp/athlete/view/view.dart';
 import 'package:ax_dapp/athlete/widgets/widgets.dart';
 import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
 import 'package:ax_dapp/service/custom_styles.dart';
@@ -28,6 +29,7 @@ class GraphSide extends StatelessWidget {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+
     var wid = _width * 0.4;
     if (_width < 1160) wid = containerWidth;
     const indexUnselectedStackBackgroundColor = Colors.transparent;
@@ -40,6 +42,10 @@ class GraphSide extends StatelessWidget {
     final _shortToolTipBehavior = TooltipBehavior(enable: true);
     final _isPortraitMode =
         MediaQuery.of(context).orientation == Orientation.portrait;
+
+    final isExpired =
+        context.select((AthletePageBloc bloc) => bloc.state.isExpired);
+
     return Container(
       height: _height / 1.5,
       constraints: const BoxConstraints(minHeight: 650, maxHeight: 850),
@@ -153,15 +159,18 @@ class GraphSide extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          MintButton(
-                            athlete: athlete,
-                            isPortraitMode: _isPortraitMode,
-                            containerWdt: containerWidth,
-                          ),
-                          SettleButton(
+                          if (isExpired == true)
+                            SettleButton(
                               athlete: athlete,
                               isPortraitMode: _isPortraitMode,
-                              containerWdt: containerWidth,),
+                              containerWdt: containerWidth,
+                            ),
+                          if (isExpired == false)
+                            MintButton(
+                              athlete: athlete,
+                              isPortraitMode: _isPortraitMode,
+                              containerWdt: containerWidth,
+                            ),
                           RedeemButton(
                             athlete: athlete,
                             inputLongApt: '',
