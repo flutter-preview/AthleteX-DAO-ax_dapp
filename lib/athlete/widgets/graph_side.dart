@@ -1,5 +1,4 @@
 import 'package:ax_dapp/athlete/bloc/athlete_page_bloc.dart';
-import 'package:ax_dapp/athlete/view/view.dart';
 import 'package:ax_dapp/athlete/widgets/widgets.dart';
 import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
 import 'package:ax_dapp/service/custom_styles.dart';
@@ -155,30 +154,30 @@ class GraphSide extends StatelessWidget {
                           )
                         ],
                       ),
-                      // Add a conditional to replace the Mint & Redeem Buttons with a settle button based on EXPIRY
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          if (isExpired == true)
+                          if (isExpired == true) ...[
                             SettleButton(
                               athlete: athlete,
                               isPortraitMode: _isPortraitMode,
                               containerWdt: containerWidth,
                             ),
-                          if (isExpired == false)
+                          ] else ...[
                             MintButton(
                               athlete: athlete,
                               isPortraitMode: _isPortraitMode,
                               containerWdt: containerWidth,
                             ),
-                          RedeemButton(
-                            athlete: athlete,
-                            inputLongApt: '',
-                            inputShortApt: '',
-                            valueInAX: '',
-                            isPortraitMode: _isPortraitMode,
-                            containerWdt: containerWidth,
-                          )
+                            RedeemButton(
+                              athlete: athlete,
+                              inputLongApt: '',
+                              inputShortApt: '',
+                              valueInAX: '',
+                              isPortraitMode: _isPortraitMode,
+                              containerWdt: containerWidth,
+                            )
+                          ],
                         ],
                       ),
                       Row(
