@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:ax_dapp/app/config/app_config.dart';
 import 'package:ax_dapp/athlete/models/market_price_record.dart';
+import 'package:ax_dapp/dialogs/settle/usecases/get_apt_expiration_use_case.dart';
 import 'package:ax_dapp/repositories/mlb_repo.dart';
 import 'package:ax_dapp/repositories/nfl_repo.dart';
 import 'package:ax_dapp/scout/models/models.dart';
@@ -20,12 +21,14 @@ class AthletePageBloc extends Bloc<AthletePageEvent, AthletePageState> {
   AthletePageBloc({
     required WalletRepository walletRepository,
     required TokensRepository tokensRepository,
+    required GetAPTExpirationUseCase getAPTExpirationUseCase,
     required this.mlbRepo,
     required this.nflRepo,
     required this.athlete,
     required this.getScoutAthletesDataUseCase,
   })  : _walletRepository = walletRepository,
         _tokensRepository = tokensRepository,
+        _getAPTExpirationUseCase = getAPTExpirationUseCase,
         super(
           // setting the apt corresponding to the default aptType which is long
           AthletePageState(
@@ -37,9 +40,11 @@ class AthletePageBloc extends Bloc<AthletePageEvent, AthletePageState> {
     on<GetPlayerStatsRequested>(_onGetPlayerStatsRequested);
     on<OnGraphRefresh>(_mapGraphRefreshEventToState);
     on<AddTokenToWalletRequested>(_onAddTokenToWalletRequested);
+    on<CheckAPTExpiration>(_onCheckAPTExpiration);
 
     add(WatchAptPairStarted(athlete.id));
     add(GetPlayerStatsRequested(athlete.id));
+    add(CheckAPTExpiration());
   }
 
   final AthleteScoutModel athlete;
@@ -49,6 +54,16 @@ class AthletePageBloc extends Bloc<AthletePageEvent, AthletePageState> {
   final MLBRepo mlbRepo;
   final NFLRepo nflRepo;
   final GetScoutAthletesDataUseCase getScoutAthletesDataUseCase;
+
+  final GetAPTExpirationUseCase _getAPTExpirationUseCase;
+
+  Future<void> _onCheckAPTExpiration(
+    CheckAPTExpiration event,
+    Emitter<AthletePageState> emit,
+  ) async {
+    final isExpired = await _getAPTExpirationUseCase.isAptExpired();
+    emit(state.copyWith(isExpired: isExpired));
+  }
 
   Future<void> _onWatchAptPairStarted(
     WatchAptPairStarted event,
