@@ -59,7 +59,7 @@ class _SettleDialogState extends State<SettleDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Settle your ${widget.athlete.name} APTs',
+                        'My Position Payout',
                         style: textStyle(
                           Colors.white,
                           20,
@@ -85,7 +85,7 @@ class _SettleDialogState extends State<SettleDialog> {
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              'you can settle APTs for their settlement price on expiration',
+                              'The season is finished, and you can now get paid out your tokens.',
                           style: textStyle(
                             Colors.grey[600]!,
                             isWeb ? 14 : 12,
@@ -94,7 +94,7 @@ class _SettleDialogState extends State<SettleDialog> {
                           ),
                         ),
                         TextSpan(
-                          text: '  What does this mean?',
+                          text: 'Get paid out',
                           style: textStyle(
                             Colors.amber[400]!,
                             isWeb ? 14 : 12,
@@ -103,7 +103,7 @@ class _SettleDialogState extends State<SettleDialog> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print('Something is happening!');
+                              print('Payout Event!');
                             },
                         ),
                       ],

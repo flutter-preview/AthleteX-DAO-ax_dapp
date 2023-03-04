@@ -283,7 +283,12 @@ class SettleButton extends StatelessWidget {
     return Container(
       width: isPortraitMode ? containerWdt / 3 : 175,
       height: 50,
-      decoration: boxDecoration(primaryOrangeColor, 100, 2, primaryWhiteColor),
+      decoration: boxDecoration(
+        const Color.fromARGB(255, 40, 109, 42),
+        100,
+        2,
+        primaryOrangeColor,
+      ),
       child: TextButton(
         onPressed: () {
           final isWalletConnected =

@@ -16,7 +16,7 @@ class SettleAPT extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'The settlement price for the APT is: α$settlementPrice',
+            'Your token payout is: $settlementPrice ',
             style: textStyle(
               Colors.white,
               15,
