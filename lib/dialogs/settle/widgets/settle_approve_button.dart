@@ -1,4 +1,5 @@
 import 'package:ax_dapp/scout/models/models.dart';
+import 'package:ax_dapp/wallet/bloc/wallet_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,28 @@ class _SettleApproveButtonState extends State<SettleApproveButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.amber),
+        color: fillColor,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: TextButton(
+        onPressed: () {
+          final walletAddress =
+              context.read<WalletBloc>().state.formattedWalletAddress;
+        },
+        child: Text(
+          'Settle',
+          style: TextStyle(
+            fontSize: 16,
+            color: textColor,
+            fontFamily: 'OpenSans',
+          ),
+        ),
+      ),
+    );
   }
 }

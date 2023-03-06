@@ -1,12 +1,15 @@
 import 'package:ax_dapp/dialogs/settle/bloc/settle_dialog_bloc.dart';
+import 'package:ax_dapp/dialogs/settle/widgets/settle_approve_button.dart';
 import 'package:ax_dapp/dialogs/settle/widgets/settle_apt.dart';
 import 'package:ax_dapp/scout/models/athlete_scout_model.dart';
+
 import 'package:ax_dapp/service/custom_styles.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tokens_repository/tokens_repository.dart';
 
 class SettleDialog extends StatefulWidget {
   const SettleDialog({
@@ -59,7 +62,7 @@ class _SettleDialogState extends State<SettleDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'My Position Payout',
+                        'Settle your ${widget.athlete.name} APT',
                         style: textStyle(
                           Colors.white,
                           20,
@@ -85,7 +88,7 @@ class _SettleDialogState extends State<SettleDialog> {
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              'The season is finished, and you can now get paid out your tokens.',
+                              'Your ${widget.athlete.name} has settled!  You can now redeem it for its book price of ${widget.athlete.longTokenBookPrice} AX',
                           style: textStyle(
                             Colors.grey[600]!,
                             isWeb ? 14 : 12,
@@ -93,28 +96,28 @@ class _SettleDialogState extends State<SettleDialog> {
                             isUline: false,
                           ),
                         ),
-                        TextSpan(
-                          text: 'Get paid out',
-                          style: textStyle(
-                            Colors.amber[400]!,
-                            isWeb ? 14 : 12,
-                            isBold: false,
-                            isUline: false,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              print('Payout Event!');
-                            },
-                        ),
                       ],
                     ),
                   ),
                 ),
-                SettleAPT(settlementPrice: settlementPrice),
                 Divider(
                   thickness: 0.35,
                   color: Colors.grey[400],
                 ),
+                SettleAPT(settlementPrice: settlementPrice),
+                SettleApproveButton(
+                  width: 175,
+                  height: 40,
+                  text: 'Approve',
+                  athlete: widget.athlete,
+                  approveCallback: () {
+                    final currentAxt =
+                        context.read<TokensRepository>().currentAxt;
+                    return bloc.longShortPairRepository
+                        .approve(currentAxt.address);
+                  },
+                  confirmCallback: bloc.longShortPairRepository.settle,
+                )
               ],
             ),
           ),

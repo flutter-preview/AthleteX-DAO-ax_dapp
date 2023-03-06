@@ -10,11 +10,10 @@ part 'settle_dialog_state.dart';
 
 class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
   SettleDialogBloc({
-    required LongShortPairRepository longShortPairRepository,
+    required this.longShortPairRepository,
     required TokensRepository tokensRepository,
     required WalletRepository walletRepository,
-  })  : _longShortPairRepository = longShortPairRepository,
-        _tokensRepository = tokensRepository,
+  })  : _tokensRepository = tokensRepository,
         _walletRepository = walletRepository,
         super(const SettleDialogState()) {
     on<EnableExpiry>(_onEnableExpiry);
@@ -24,7 +23,7 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
     add(GetSettlePrice());
   }
 
-  final LongShortPairRepository _longShortPairRepository;
+  final LongShortPairRepository longShortPairRepository;
   final TokensRepository _tokensRepository;
   final WalletRepository _walletRepository;
 
@@ -42,7 +41,7 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
     GetSettlePrice event,
     Emitter<SettleDialogState> emit,
   ) async {
-    final settlementPrice = await _longShortPairRepository.expPrice();
+    final settlementPrice = await longShortPairRepository.expPrice();
 
     emit(
       state.copyWith(settlementPrice: settlementPrice),
