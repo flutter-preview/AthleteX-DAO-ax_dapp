@@ -110,12 +110,7 @@ class _SettleDialogState extends State<SettleDialog> {
                   height: 40,
                   text: 'Approve',
                   athlete: widget.athlete,
-                  approveCallback: () {
-                    final currentAxt =
-                        context.read<TokensRepository>().currentAxt;
-                    return bloc.longShortPairRepository
-                        .approve(currentAxt.address);
-                  },
+                  approveCallback: bloc.longShortPairRepository.settle,
                   confirmCallback: bloc.longShortPairRepository.settle,
                 )
               ],
