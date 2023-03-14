@@ -9,6 +9,7 @@ import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:tokens_repository/tokens_repository.dart';
 
 class SettleDialog extends StatefulWidget {
@@ -33,12 +34,13 @@ class _SettleDialogState extends State<SettleDialog> {
         kIsWeb && (MediaQuery.of(context).orientation == Orientation.landscape);
     final _height = MediaQuery.of(context).size.height;
     final wid = isWeb ? 400.0 : 355.0;
-
     return BlocConsumer<SettleDialogBloc, SettleDialogState>(
       listener: (context, state) {},
       builder: (context, state) {
         final bloc = context.read<SettleDialogBloc>();
         final settlementTime = state.settlementTime;
+        final formattedAPTDate = DateFormat('yMMMMd')
+            .format(DateTime.fromMillisecondsSinceEpoch(settlementTime * 1000));
         return Dialog(
           insetPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
@@ -107,7 +109,7 @@ class _SettleDialogState extends State<SettleDialog> {
                   child: RichText(
                     text: TextSpan(
                       text:
-                          'This APT contract has expired on ${DateTime.fromMillisecondsSinceEpoch(settlementTime * 1000).toLocal()}',
+                          'This APT contract has expired on: $formattedAPTDate',
                       style: textStyle(
                         Colors.white,
                         15,
