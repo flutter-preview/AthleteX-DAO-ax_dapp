@@ -19,6 +19,7 @@ class SettleDialogState extends Equatable {
   List<Object> get props {
     return [
       settlementPrice,
+      settlementTime,
       longAPTAmount,
       shortAPTAmount,
       status,
@@ -34,6 +35,7 @@ class SettleDialogState extends Equatable {
   }) {
     return SettleDialogState(
       settlementPrice: settlementPrice ?? this.settlementPrice,
+      settlementTime: settlementTime ?? this.settlementTime,
       longAPTAmount: longAPTAmount ?? this.longAPTAmount,
       shortAPTAmount: shortAPTAmount ?? this.shortAPTAmount,
       status: status ?? this.status,

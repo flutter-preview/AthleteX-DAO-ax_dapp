@@ -38,7 +38,7 @@ class _SettleDialogState extends State<SettleDialog> {
       listener: (context, state) {},
       builder: (context, state) {
         final bloc = context.read<SettleDialogBloc>();
-
+        final settlementTime = state.settlementTime;
         return Dialog(
           insetPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
@@ -107,7 +107,7 @@ class _SettleDialogState extends State<SettleDialog> {
                   child: RichText(
                     text: TextSpan(
                       text:
-                          'This APT contract has expired on ${DateTime.fromMillisecondsSinceEpoch(state.settlementTime).toLocal()}',
+                          'This APT contract has expired on ${DateTime.fromMillisecondsSinceEpoch(settlementTime * 1000).toLocal()}',
                       style: textStyle(
                         Colors.white,
                         15,
