@@ -38,9 +38,6 @@ class _SettleDialogState extends State<SettleDialog> {
       listener: (context, state) {},
       builder: (context, state) {
         final bloc = context.read<SettleDialogBloc>();
-        final settlementPrice = state.settlementPrice;
-        final longRedeem = state.longAPTAmount;
-        final shortRedeem = state.shortAPTAmount;
 
         return Dialog(
           insetPadding: EdgeInsets.zero,
@@ -88,7 +85,7 @@ class _SettleDialogState extends State<SettleDialog> {
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              'Your ${widget.athlete.name} has settled!  You can now redeem it for its book price of ${widget.athlete.longTokenBookPrice} AX',
+                              'Your ${widget.athlete.name} has settled! You can now redeem it for its book price of ${state.settlementPrice} AX',
                           style: textStyle(
                             Colors.grey[600]!,
                             isWeb ? 14 : 12,
@@ -98,13 +95,28 @@ class _SettleDialogState extends State<SettleDialog> {
                         ),
                       ],
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 Divider(
-                  thickness: 0.35,
+                  thickness: 0.40,
                   color: Colors.grey[400],
                 ),
-                SettleAPT(settlementPrice: settlementPrice),
+                SizedBox(
+                  width: wid,
+                  child: RichText(
+                    text: TextSpan(
+                      text:
+                          'This APT contract has expired on ${DateTime.fromMillisecondsSinceEpoch(state.settlementTime).toLocal()}',
+                      style: textStyle(
+                        Colors.white,
+                        15,
+                        isBold: false,
+                        isUline: false,
+                      ),
+                    ),
+                  ),
+                ),
                 SettleApproveButton(
                   width: 175,
                   height: 40,

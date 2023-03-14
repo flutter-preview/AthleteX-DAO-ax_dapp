@@ -41,10 +41,18 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
     GetSettlePrice event,
     Emitter<SettleDialogState> emit,
   ) async {
-    final settlementPrice = await longShortPairRepository.expPrice();
+    await longShortPairRepository.expPrice();
+    await longShortPairRepository.expTimestamp();
+    final settlementPrice = longShortPairRepository.expiryPrice;
+    final settlementTime = longShortPairRepository.expirationTimestamp;
+    print(
+        'On chain settlement price: $settlementPrice, on chain settlement time: $settlementTime');
 
     emit(
-      state.copyWith(settlementPrice: settlementPrice),
+      state.copyWith(
+        settlementPrice: settlementPrice,
+        settlementTime: settlementTime,
+      ),
     );
   }
 }

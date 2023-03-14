@@ -284,7 +284,7 @@ class SettleButton extends StatelessWidget {
       width: isPortraitMode ? containerWdt / 3 : 175,
       height: 50,
       decoration: boxDecoration(
-        const Color.fromARGB(255, 40, 109, 42),
+        primaryOrangeColor,
         100,
         2,
         primaryOrangeColor,
