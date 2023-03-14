@@ -37,7 +37,6 @@ class LongShortPairRepository {
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final thePrice = await genericLSP.expiryPrice();
     _expiryPrice.value = thePrice.toDouble();
-
     return thePrice.toDouble();
   }
 
@@ -85,7 +84,7 @@ class LongShortPairRepository {
     }
   }
 
-  Future<void> settle() async {
+  Future<bool> settle() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
     final theCredentials = controller.credentials;
@@ -93,11 +92,16 @@ class LongShortPairRepository {
     final longTokensToRedeem = normalizeInput(longRedeemAmt.value);
     final shortTokensToRedeem = normalizeInput(shortRedeemAmt.value);
 
-    final txn = await genericLSP.settle(
-      longTokensToRedeem,
-      shortTokensToRedeem,
-      credentials: theCredentials,
-    );
-    controller.transactionHash = txn;
+    try {
+      final txn = await genericLSP.settle(
+        longTokensToRedeem,
+        shortTokensToRedeem,
+        credentials: theCredentials,
+      );
+      controller.transactionHash = txn;
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 }
