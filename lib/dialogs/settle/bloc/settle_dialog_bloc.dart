@@ -1,6 +1,7 @@
 import 'package:ax_dapp/service/controller/scout/long_short_pair_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:ax_dapp/util/bloc_status.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tokens_repository/tokens_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
@@ -45,9 +46,7 @@ class SettleDialogBloc extends Bloc<SettleDialogEvent, SettleDialogState> {
     await longShortPairRepository.expTimestamp();
     final settlementPrice = longShortPairRepository.expiryPrice;
     final settlementTime = longShortPairRepository.expirationTimestamp;
-    print(
-        'On chain settlement price: $settlementPrice, on chain settlement time: $settlementTime');
-
+    debugPrint('LSP settlementTime: $settlementTime');
     emit(
       state.copyWith(
         settlementPrice: settlementPrice,

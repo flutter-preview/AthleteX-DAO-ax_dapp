@@ -3,7 +3,7 @@ part of 'settle_dialog_bloc.dart';
 class SettleDialogState extends Equatable {
   const SettleDialogState({
     this.status = BlocStatus.initial,
-    this.settlementPrice = 1000,
+    this.settlementPrice = 0,
     this.settlementTime = 0,
     this.longAPTAmount = 0,
     this.shortAPTAmount = 0,

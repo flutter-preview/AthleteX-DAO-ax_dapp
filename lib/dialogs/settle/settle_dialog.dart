@@ -87,7 +87,7 @@ class _SettleDialogState extends State<SettleDialog> {
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              'Your ${widget.athlete.name} APT has settled! You can now redeem it for its book price of ${state.settlementPrice} AX',
+                              'Your ${widget.athlete.name} APT has settled! Press "Settle" to fulfil the contract and accept the money underneath',
                           style: textStyle(
                             Colors.grey[600]!,
                             isWeb ? 14 : 12,
