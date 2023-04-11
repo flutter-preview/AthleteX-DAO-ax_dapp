@@ -17,6 +17,7 @@ NFLAthlete _$NFLAthleteFromJson(Map<String, dynamic> json) => NFLAthlete(
       receivingYards: (json['receivingYards'] as num).toDouble(),
       receivingTouchdowns: (json['receivingTouchdowns'] as num).toDouble(),
       rushingYards: (json['rushingYards'] as num).toDouble(),
+      rushingTouchdowns: (json['rushingTouchdowns'] as num).toDouble(),
       offensiveSnapsPlayed: (json['offensiveSnapsPlayed'] as num).toDouble(),
       defensiveSnapsPlayed: (json['defensiveSnapsPlayed'] as num).toDouble(),
       price: (json['price'] as num).toDouble(),

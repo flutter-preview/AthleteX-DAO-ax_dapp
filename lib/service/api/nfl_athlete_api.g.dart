@@ -1,226 +1,91 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+// part of 'nfl_athlete_api.dart';
 
-part of 'nfl_athlete_api.dart';
+// class _NFLAthleteAPI implements NFLAthleteAPI {
+//   _NFLAthleteAPI(this._dio) {}
 
-// **************************************************************************
-// RetrofitGenerator
-// **************************************************************************
+//   final Dio _dio;
+//   final baseDataUrl = 'https://${nflApiDataUrl}.ipfs.nftstorage.link';
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+//   @override
+//   Future<List<NFLAthlete>> getPlayersById(ids) async {
 
-class _NFLAthleteAPI implements NFLAthleteAPI {
-  _NFLAthleteAPI(this._dio, {this.baseUrl}) {
-    baseUrl ??= '$baseApiUrl/nfl';
-  }
+//     List<NFLAthlete> athletes = [];
+//     for (int i = 0; i < ids.length; i++) {
+//       String url = baseDataUrl + '/${ids[i]}';
+//       await athletes.add(
+//         NFLAthlete.fromJson(
+//           _dio.get(url);
+//         );
+//       );
+//     }
 
-  final Dio _dio;
+//     return await athletes;
+//   }
 
-  String? baseUrl;
+//   @override
+//   Future<NFLAthlete> getPlayer(id) async {}
+//   //   return await NFLAthlete.fromJson(
+//   //     _dio.get(baseDataUrl + '/${id}');
+//   //   );
+//   // }
 
-  @override
-  Future<List<NFLAthlete>> getAllPlayers() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthlete>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthlete.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
+//   @override
+//   Future<List<NFLAthlete>> getPlayersByPosition(position) async {}
+//   //   final List<NFLAthlete> athletes = [];
+//   //   final jsonString = _dio.get(baseDataUrl + '/ALL_PLAYERS');
+//   //   final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+//   //   for (final athlete in jsonData['Athletes']) {
+//   //     final String ath_position = athlete['Position'].toString().toLowerCase();
+//   //     if (ath_position.contains(position.toLowerCase())) {
+//   //       athletes.add(NFLAthlete.fromJson(athlete));
+//   //     }
+//   //   }
 
-  @override
-  Future<List<NFLAthlete>> getPlayersById(playerIds) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(playerIds.toJson());
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthlete>>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthlete.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
+//   //   return athletes;
+//   // }
 
-  @override
-  Future<NFLAthlete> getPlayer(id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NFLAthlete>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players/${id}',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = NFLAthlete.fromJson(_result.data!);
-    return value;
-  }
+//   @override
+//   Future<AthletePriceRecord> getPlayerPriceHistory(
+//       id, from, until, interval) async {}
+//   //   // valid intervals: Hour, Day
+//   //   String case_interval;
+//   //   interval.toLowerCase() == 'hour'
+//   //     ? case_interval = 'Hour'
+//   //     : case_interval = 'Day'
 
-  @override
-  Future<List<NFLAthlete>> getPlayersByTeam(team) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'team': team};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthlete>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthlete.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
+//   //   final jsonString = _dio.get(baseDataUrl + '/${id}_history');
+//   //   List<PriceRecord> history;
+//   //   DateTime fromTime = DateTime.parse(from);
+//   //   DateTime untilTime = DateTime.parse(until);
+//   //   for (final priceTime in jsonString[case_interval]) {
+//   //     final time = DateTime.parse(priceTime['Time']);
+//   //     if (time.compareTo(fromTime) <= 0 && time.compareTo(untilTime) >= 0) {
+//   //       history.add(
+//   //         PriceRecord(
+//   //           price: priceTime['Price'],
+//   //           timestamp: time,
+//   //         );
+//   //       );
+//   //     }
+//   //   }
 
-  @override
-  Future<List<NFLAthlete>> getPlayersByPosition(position) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'position': position};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthlete>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthlete.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
+//   //   return AthletePriceRecord(
+//   //     id: id,
+//   //     name: '';
+//   //     priceHistory: history,
+//   //   );
+//   // }
 
-  @override
-  Future<List<NFLAthlete>> getPlayersByTeamAtPosition(team, position) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'team': team,
-      r'position': position
-    };
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthlete>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthlete.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
+//   @override
+//   Future<List<AthletePriceRecord>> getPlayersPriceHistory(
+//       playerIds, from, until, interval) async {}
+//   //   List<AthletePriceRecord> playersHistory;
+//   //   for (final id in playerIds) {
+//   //     playersHistory.add(
+//   //       getPlayerPriceHistory(id, from, until, interval)
+//   //     );
+//   //   }
 
-  @override
-  Future<NFLAthleteStats> getPlayerHistory(id, from, until) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'from': from, r'until': until};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NFLAthleteStats>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players/${id}/history',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = NFLAthleteStats.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<AthletePriceRecord> getPlayerPriceHistory(
-      id, from, until, interval) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'from': from,
-      r'until': until,
-      r'interval': interval
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AthletePriceRecord>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players/${id}/history/price',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AthletePriceRecord.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<List<NFLAthleteStats>> getPlayersHistory(
-      playerIds, from, until) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'from': from, r'until': until};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(playerIds.toJson());
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<NFLAthleteStats>>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players/history',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => NFLAthleteStats.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<List<AthletePriceRecord>> getPlayersPriceHistory(
-      playerIds, from, until, interval) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'from': from,
-      r'until': until,
-      r'interval': interval
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(playerIds.toJson());
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<AthletePriceRecord>>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/players/history/price',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) =>
-            AthletePriceRecord.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-    if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
-      if (T == String) {
-        requestOptions.responseType = ResponseType.plain;
-      } else {
-        requestOptions.responseType = ResponseType.json;
-      }
-    }
-    return requestOptions;
-  }
-}
+//   //   return playersHistory;
+//   // }
+// }

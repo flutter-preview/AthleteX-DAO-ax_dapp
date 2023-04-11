@@ -6,24 +6,13 @@ abstract class SportsRepo<SportAthlete> {
 
   final SupportedSport sport;
 
-  Future<List<SportAthlete>> getAllPlayers();
-
   Future<List<SportAthlete>> getPlayersById(List<int> ids);
 
   Future<List<SportAthlete>> getSupportedPlayers();
 
   Future<SportAthlete> getPlayer(int id);
 
-  Future<List<SportAthlete>> getPlayersByTeam(String team);
-
   Future<List<SportAthlete>> getPlayersByPosition(String position);
-
-  Future<List<SportAthlete>> getPlayersByTeamAtPosition(
-    String team,
-    String position,
-  );
-
-  Future<dynamic> getPlayerStatsHistory(int id, String from, String until);
 
   Future<AthletePriceRecord> getPlayerPriceHistory(
     int id, {
@@ -31,12 +20,6 @@ abstract class SportsRepo<SportAthlete> {
     String? until,
     String? interval,
   });
-
-  Future<List<dynamic>> getPlayersStatsHistory(
-    List<int> ids,
-    String from,
-    String until,
-  );
 
   Future<List<AthletePriceRecord>> getPlayersPriceHistory(
     List<int> ids, {
