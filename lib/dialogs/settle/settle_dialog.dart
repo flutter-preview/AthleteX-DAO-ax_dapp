@@ -124,7 +124,7 @@ class _SettleDialogState extends State<SettleDialog> {
                   height: 40,
                   text: 'Approve',
                   athlete: widget.athlete,
-                  approveCallback: bloc.longShortPairRepository.settle,
+                  approveCallback: bloc.longShortPairRepository.expire,
                   confirmCallback: bloc.longShortPairRepository.settle,
                 )
               ],

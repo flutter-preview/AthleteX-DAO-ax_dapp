@@ -84,6 +84,19 @@ class LongShortPairRepository {
     }
   }
 
+  Future<void> expire() async {
+    final address = EthereumAddress.fromHex(aptAddress.value);
+    genericLSP = LongShortPair(address: address, client: tokenClient);
+    try {
+      final txn = await genericLSP.expire(credentials: controller.credentials);
+      controller.transactionHash = txn;
+    } catch (e) {
+      throw UnimplementedError(
+        'This function "expire()" was not able to be called',
+      );
+    }
+  }
+
   Future<bool> settle() async {
     final address = EthereumAddress.fromHex(aptAddress.value);
     genericLSP = LongShortPair(address: address, client: tokenClient);
