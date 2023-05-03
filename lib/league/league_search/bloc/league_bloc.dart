@@ -105,38 +105,20 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
     FetchLeagues event,
     Emitter<LeagueState> emit,
   ) async {
-    try {
-      emit(state.copyWith(status: BlocStatus.loading));
-      final leagues = await _leagueRepository.fetchLeagues();
-      filterOutUnsupportedSportsByChain(leagues);
-      final leagueTeams = await Future.wait(
-        leagues.map((league) async {
-          final leagueTeam =
-              await _leagueRepository.getLeagueTeams(leagueID: league.leagueID);
-          return leagueTeam;
-        }),
-      );
-      emit(
-        state.copyWith(
-          allLeagues: leagues,
-          filteredLeagues: leagues,
-          leagueTeams: leagueTeams,
-          filteredLeagueTeams: leagueTeams,
-          status: BlocStatus.success,
-          selectedSport: SupportedSport.all,
-        ),
-      );
-    } catch (_) {
-      emit(
-        state.copyWith(
-          allLeagues: [],
-          filteredLeagues: [],
-          leagueTeams: [],
-          filteredLeagueTeams: [],
-          status: BlocStatus.error,
-        ),
-      );
-    }
+    await emit.onEach<List<League>>(
+      _leagueRepository.fetchLeagues(),
+      onData: (leagues) async {
+        filterOutUnsupportedSportsByChain(leagues);
+        emit(
+          state.copyWith(
+            allLeagues: leagues,
+            filteredLeagues: leagues,
+            leagueTeams: [],
+            filteredLeagueTeams: [],
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _onSearchLeague(

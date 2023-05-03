@@ -363,7 +363,7 @@ class _DesktopLeagueState extends State<DesktopLeague> {
                         itemBuilder: (context, index) {
                           return LeagueCard(
                             league: filteredLeagues[index],
-                            leagueTeams: filteredLeagueTeams[index],
+                            leagueTeams: const [],
                           );
                         },
                       ),
